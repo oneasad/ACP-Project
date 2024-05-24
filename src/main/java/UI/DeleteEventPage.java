@@ -60,9 +60,11 @@ public class DeleteEventPage extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == submitButton){
             String eventID = eventID_text.getText();
-            Boolean result = false;
+            int result = 0, res = 0;
             try {
-                int res = db.deleteData(Integer.parseInt(eventID));
+                result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this event?");
+                if(result == JOptionPane.YES_OPTION)
+                    res = db.deleteData(Integer.parseInt(eventID));
                 if(res>0){
                     JOptionPane.showMessageDialog(null, "Event deleted successfully");
                     eventID_text.setText(null);

@@ -120,8 +120,11 @@ public class MenuPage extends JFrame implements ActionListener, MouseListener {
         // <editor-fold desc="Delete Mechanism">
         else if(e.getSource() == delButton){
             DataBase db = new DataBase();
+            int res = 0, result = 0;
             try {
-                int res = db.deleteData(Integer.parseInt(id_selected));
+                result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this event?");
+                if(result == JOptionPane.YES_OPTION)
+                    res = db.deleteData(Integer.parseInt(id_selected));
                 if(res>0){
                     JOptionPane.showMessageDialog(null, "Event deleted successfully");
                     delButton.setEnabled(false);

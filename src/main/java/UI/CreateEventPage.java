@@ -31,8 +31,8 @@ public class CreateEventPage extends JFrame implements ActionListener{
     public CreateEventPage() {
         db = new DataBase();
         eventTitle_text = new JTextField();
-        eventDate_text = new JTextField();
-        eventTime_text = new JTextField();
+        eventDate_text = new JTextField("2024-05-20");
+        eventTime_text = new JTextField("00:00:00");
         eventLocation_text = new JTextField();
         eventDescription_text = new JTextField();
         eventTitle_label = new JLabel("Title");
