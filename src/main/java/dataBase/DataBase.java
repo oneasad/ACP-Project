@@ -134,10 +134,7 @@ public class DataBase {
         }
 
         if(!user.isEmpty() && !pswd.isEmpty()){
-            if(user.equals(userName) && pswd.equals(userPassword))
-                return true;
-            else
-                return false;
+            return user.equals(userName) && pswd.equals(userPassword);
         }
         else
             return false;
