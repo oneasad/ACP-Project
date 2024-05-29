@@ -1,5 +1,7 @@
 package UI;
 
+import dataBase.DataBase;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -9,16 +11,21 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 public class loginPage extends JFrame implements ActionListener {
 
     // <editor-fold desc="Global Declarations">
     JTextField userName_text;
     JPasswordField password_text;
+    DataBase db;
+    Boolean result;
     // </editor-fold>
 
     // <editor-fold desc="Constructor">
     public loginPage() {
+        db = new DataBase();
+        result = false;
         JLabel mainHeading_label = new JLabel("Event Registry");
         JLabel subheading_label = new JLabel("Login Screen");
         JLabel userName_label = new JLabel("Username:");
@@ -66,13 +73,18 @@ public class loginPage extends JFrame implements ActionListener {
         String userName,password;
         userName = userName_text.getText();
         password = new String(password_text.getPassword());
-
-        if(userName.equals("admin") && password.equals("admin"))
+        try {
+            result = db.checkUser(userName, password);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        if(result)
         {
             //JOptionPane.showMessageDialog(getComponent(0), "Login Successfully");
             setVisible(false);
             MenuPage obj = new MenuPage();
 			obj.setVisible(true);
+            result = false;
         }
         else
             JOptionPane.showMessageDialog(getComponent(0), "Login Failed");

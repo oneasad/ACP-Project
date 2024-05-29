@@ -124,5 +124,23 @@ public class DataBase {
         return pStat.executeUpdate();
     }
     // </editor-fold>
+
+    public Boolean checkUser(String userName, String userPassword) throws SQLException {
+        resultSet = st.executeQuery("SELECT * FROM users WHERE user_name = '" + userName + "';");
+        String user = "", pswd = "";
+        while (resultSet.next()) {
+           user = resultSet.getObject(1).toString();
+           pswd = resultSet.getObject(2).toString();
+        }
+
+        if(!user.isEmpty() && !pswd.isEmpty()){
+            if(user.equals(userName) && pswd.equals(userPassword))
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    }
 }
 
