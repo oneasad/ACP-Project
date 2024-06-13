@@ -111,9 +111,7 @@ public class DataBase {
         pStat.setString(4, event.getLocation());
         pStat.setString(5, event.getDescription());
         pStat.setInt(6, Integer.parseInt(eventID));
-        int rowsAffected = pStat.executeUpdate();
-        pStat.close();
-        return rowsAffected > 0;
+        return pStat.executeUpdate()>0;
     }
     // </editor-fold>
 
@@ -125,8 +123,11 @@ public class DataBase {
     }
     // </editor-fold>
 
+    // <editor-fold desc="Checking User Credentials">
     public Boolean checkUser(String userName, String userPassword) throws SQLException {
-        resultSet = st.executeQuery("SELECT * FROM users WHERE user_name = '" + userName + "';");
+        PreparedStatement pstat = conn.prepareStatement("SELECT * FROM users WHERE user_name = ?");
+        pstat.setString(1, userName);
+        resultSet = pstat.executeQuery();
         String user = "", pswd = "";
         while (resultSet.next()) {
            user = resultSet.getObject(1).toString();
@@ -139,5 +140,6 @@ public class DataBase {
         else
             return false;
     }
+    // </editor-fold>
 }
 
